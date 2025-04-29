@@ -15,15 +15,15 @@
     "typescript": "^5.7.2"
   },
   "scripts": {
-    "create:auth:file": "node -e \"require('fs').writeFileSync('auth.json', '')\"",
+    "create:auth:file": "yarn --cwd ./UI node -e \"require('fs').writeFileSync('auth.json', '')\"",
     "install:deps": "yarn install && yarn install:playwright:browsers && yarn create:auth:file && yarn update:env:file",
     "install:playwright:browsers": "yarn playwright install",
-    "test:ess:spt": "cross-env playwright test",
-    "test:admin": "cross-env PROJECT_NAME=lime-survey-admin yarn test:ess:spt --project=lime-survey-admin",
-    "test:user": "cross-env PROJECT_NAME=lime-survey-user yarn test:ess:spt --project=lime-survey-user",
-    "playwright:codegen:admin": "dotenv -e .env -- sh -c 'npx playwright codegen --viewport-size=1600,900 $ADMIN_BASE_URL'",
-    "playwright:codegen:user": "dotenv -e .env -- sh -c 'npx playwright codegen --viewport-size=1600,900 $BASE_URL'",
-    "playwright:ui:mode": "cross-env PROJECT_NAME=lime-survey-admin yarn playwright test --ui",
+    "test:ess:spt": "yarn --cwd ./UI test:ess:spt",
+    "test:cms": "yarn --cwd ./UI test:cms",
+    "test:chirp": "yarn --cwd ./UI test:chirp",
+    "playwright:codegen:admin": "yarn --cwd ./UI playwright:codegen:admin",
+    "playwright:codegen:user": "yarn --cwd ./UI playwright:codegen:user",
+    "playwright:ui:mode": "yarn --cwd ./UI playwright:ui:mode",
     "update:env:file": "bash update_env.sh"
   },
   "dependencies": {}

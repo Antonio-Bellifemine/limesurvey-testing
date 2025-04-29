@@ -1,0 +1,29 @@
+{
+  "name": "e2e",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "author": "Antonio Bellifemine <antonio.bellifemine@exploredigits.com",
+  "devDependencies": {
+    "dotenv-cli": "^8.0.0",
+    "@dotenvx/dotenvx": "^1.29.0",
+    "@faker-js/faker": "^9.4.0",
+    "@playwright/test": "^1.46.1",
+    "@types/node": "^22.7.4",
+    "cross-env": "^7.0.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
+  },
+  "scripts": {
+    "create:auth:file": "node -e \"require('fs').writeFileSync('auth.json', '')\"",
+
+
+    "test:ess:spt": "cross-env playwright test",
+    "test:cms": "cross-env PROJECT_NAME=sp-cms yarn test:ess:spt --project=sp-cms",
+    "test:chirp": "cross-env PROJECT_NAME=sp-documenting-hope yarn test:ess:spt --project=sp-documenting-hope",
+    "playwright:codegen:admin": "dotenv -e ../.env -- sh -c 'npx playwright codegen --browser firefox  --viewport-size=1600,900 $ADMIN_BASE_URL --ignore-https-errors --load-storage=auth.json'",
+    "playwright:codegen:user": "dotenv -e .env -- sh -c 'npx playwright codegen --viewport-size=1600,900 $BASE_URL --ignore-https-errors'",
+    "playwright:ui:mode": "cross-env PROJECT_NAME=sp-cms yarn test:ess:spt --ui"
+  },
+  "dependencies": {}
+}
